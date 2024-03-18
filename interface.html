@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake Profile Detection and Reporting</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    h2 {
+        text-align: center;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .report-result {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .low-risk {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+    .high-risk {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Fake Profile Detection and Reporting</h2>
+    <label for="profileData">Profile Data:</label>
+    <textarea id="profileData" rows="5" placeholder="Enter profile data here..."></textarea>
+    <button onclick="detectAndReportFakeProfile()">Detect & Report</button>
+    <div id="reportResult" class="report-result" style="display: none;"></div>
+</div>
+
+<script>
+    function detectAndReportFakeProfile() {
+        var profileData = document.getElementById("profileData").value;
+        var isFake = detectFakeProfile(profileData);
+
+        if (isFake) {
+            var resultDiv = document.getElementById("reportResult");
+            resultDiv.style.display = "block";
+            resultDiv.className = "report-result high-risk";
+            resultDiv.textContent = "Fake profile detected. High risk. Immediate action required.";
+        } else {
+            alert("No fake profile detected.");
+        }
+    }
+
+    function detectFakeProfile(profileData) {
+        // Define suspicious keywords indicating a fake profile
+        var suspiciousKeywords = ["fake", "spam", "bot", "scam", "anonymous"];
+
+        // Convert profileData to lowercase for case-insensitive matching
+        profileData = profileData.toLowerCase();
+
+        // Check if any suspicious keyword is present in the profile data
+        for (var i = 0; i < suspiciousKeywords.length; i++) {
+            if (profileData.includes(suspiciousKeywords[i])) {
+                return true; // Profile is considered fake if any suspicious keyword is found
+            }
+        }
+        return false; // Profile is not considered fake if no suspicious keyword is found
+    }
+</script>
+
+</body>
+</html>
