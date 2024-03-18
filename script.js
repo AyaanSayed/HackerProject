@@ -1,24 +1,30 @@
-document.getElementById("profileForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var username = document.getElementById("username").value;
-    detectFakeProfile(username);
-  });
-  
-  function detectFakeProfile(username) {
-    // Here you would send an AJAX request to the backend for profile detection
-    // In this example, let's assume the backend returns a simple response
-    var fakeProbability = Math.random(); // Placeholder for backend response
-    displayResult(username, fakeProbability);
-  }
-  
-  function displayResult(username, fakeProbability) {
-    var resultElement = document.getElementById("result");
-    var resultMessage;
-    if (fakeProbability < 0.5) {
-      resultMessage = "Profile '" + username + "' appears to be genuine.";
+const express = require("express");
+const bodyParser = require("body-parser");
+const { PythonShell } = require("python-shell");
+
+const app = express();
+const port = 3000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Endpoint for fake profile detection
+app.post("/detectFakeProfile", (req, res) => {
+  const username = req.body.username;
+
+  // Call Python script to detect fake profile
+  PythonShell.run('fake_profile_detector.py', { args: [username] }, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
     } else {
-      resultMessage = "Profile '" + username + "' might be fake.";
+      const prediction = parseFloat(results[0]);
+      const isFake = prediction > 0.5; // Assuming prediction is probability of being fake
+      res.json({ username, isFake });
     }
-    resultElement.textContent = resultMessage;
-  }
-  
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
