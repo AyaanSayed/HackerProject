@@ -85,19 +85,45 @@
     function detectFakeProfile(profileData) {
         // Define suspicious keywords indicating a fake profile
         var suspiciousKeywords = ["fake", "spam", "bot", "scam", "anonymous"];
+        var suspiciousPatterns = ["excessive posting", "inconsistent personal information", "suspicious behavior"];
 
         // Convert profileData to lowercase for case-insensitive matching
         profileData = profileData.toLowerCase();
 
-        // Check if any suspicious keyword is present in the profile data
+        // Check for suspicious keywords
         for (var i = 0; i < suspiciousKeywords.length; i++) {
             if (profileData.includes(suspiciousKeywords[i])) {
                 return true; // Profile is considered fake if any suspicious keyword is found
             }
         }
-        return false; // Profile is not considered fake if no suspicious keyword is found
+
+        // Check for suspicious patterns
+        for (var j = 0; j < suspiciousPatterns.length; j++) {
+            if (profileData.includes(suspiciousPatterns[j])) {
+                return true; // Profile is considered fake if any suspicious pattern is found
+            }
+        }
+
+        // Additional checks inspired by Instagram's algorithm
+        // These could include checks for:
+        // - Low follower count combined with high activity
+        // - High engagement with low-quality or inappropriate content
+        // - Sudden spikes in follower count or activity
+        // - Inconsistent posting times or behavior
+        // - Similarities with known fake profiles or bot behavior
+        
+        // For simplicity, let's simulate some of these checks with random values
+        var followerCount = Math.floor(Math.random() * 1000); // Simulated follower count
+        var engagementRate = Math.random(); // Simulated engagement rate
+        
+        if (followerCount < 100 && engagementRate > 0.5) {
+            return true; // Low follower count combined with high engagement indicates a potential fake profile
+        }
+
+        return false; // Profile is not considered fake if no suspicious keyword, pattern, or condition is found
     }
 </script>
 
 </body>
 </html>
+
