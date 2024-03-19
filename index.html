@@ -1,1 +1,33 @@
-<h2>hello</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake Profile Detector</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #5c4b6d, #3855d8);
+      /* Adjust the gradient colors and direction as needed */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fake Profile Detector</h1>
+    <div id="result"></div>
+    <form id="profileForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <button type="submit">Detect</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
