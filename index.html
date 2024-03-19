@@ -6,20 +6,32 @@
   <title>Fake Profile Detector</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Gradient Background */
     body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: linear-gradient(to bottom right, #5c4b6d, #3855d8);
+      background: linear-gradient(to bottom right, #8A2BE2, #4B0082);
       /* Adjust the gradient colors and direction as needed */
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
+    /* Hide all containers initially */
+    .container {
+      display: none;
+    }
+
+    /* Display the first container initially */
+    .container:first-of-type {
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Page 1: Fake Profile Detector -->
+  <div class="container" id="fakeProfileDetector">
     <h1>Fake Profile Detector</h1>
     <div id="result"></div>
     <form id="profileForm">
@@ -27,7 +39,43 @@
       <input type="text" id="username" name="username">
       <button type="submit">Detect</button>
     </form>
+    <a href="#" onclick="showPage('profileInput')">Go to Profile Input</a>
   </div>
+
+  <!-- Page 2: Profile Input -->
+  <div class="container" id="profileInput">
+    <h1>Enter Profile Information</h1>
+    <form id="profileInfoForm">
+      <label for="followers">Followers:</label>
+      <input type="number" id="followers" name="followers" min="0">
+      <label for="following">Following:</label>
+      <input type="number" id="following" name="following" min="0">
+      <label for="accountAge">Account Age (in days):</label>
+      <input type="number" id="accountAge" name="accountAge" min="0">
+      <label for="profilePicture">Profile Picture:</label>
+      <select id="profilePicture" name="profilePicture">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+      <label for="bio">Biography:</label>
+      <select id="bio" name="bio">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+    <a href="#" onclick="showPage('fakeProfileDetector')">Go to Fake Profile Detector</a>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    function showPage(pageId) {
+      var containers = document.getElementsByClassName('container');
+      for (var i = 0; i < containers.length; i++) {
+        containers[i].style.display = 'none';
+      }
+      document.getElementById(pageId).style.display = 'block';
+    }
+  </script>
 </body>
 </html>
