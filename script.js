@@ -30,9 +30,9 @@ function detectFakeProfile(username, following, followers, age, bio, profilePic)
     // If none of the above conditions are met, consider the profile as real
     return false;
   }
-  
-  // Function to handle form submission and profile checking
-  document.getElementById('profileForm').addEventListener('submit', function(event) {
+
+// Function to handle form submission and profile checking
+document.getElementById('profileForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const username = document.getElementById('username').value.trim();
     const following = parseInt(document.getElementById('following').value);
@@ -43,8 +43,8 @@ function detectFakeProfile(username, following, followers, age, bio, profilePic)
     
     // Check if any required field is empty
     if (username === '' || isNaN(following) || isNaN(followers) || isNaN(age)) {
-      displayResult(false, 'Please fill in all required fields.');
-      return;
+        displayResult(false, 'Please fill in all required fields.');
+        return;
     }
     
     // Check if the profile is fake or real
@@ -52,12 +52,32 @@ function detectFakeProfile(username, following, followers, age, bio, profilePic)
     
     // Display the result
     displayResult(isFake, isFake ? 'This profile seems to be fake. Please report it!' : 'This profile appears to be legitimate.');
-  });
-  
-  // Function to display the result
-  function displayResult(isFake, message) {
+    
+    // If profile is fake, show report button
+    if (isFake) {
+        showReportButton();
+    }
+});
+
+// Function to display the result
+function displayResult(isFake, message) {
     const resultDiv = document.getElementById('result');
     resultDiv.textContent = message;
     resultDiv.style.color = isFake ? '#ff0000' : '#008000';
-  }
-  
+}
+
+// Function to show report button
+function showReportButton() {
+    const reportBtnContainer = document.getElementById('reportBtnContainer');
+    const reportBtn = document.createElement('button');
+    reportBtn.textContent = 'Report';
+    reportBtn.style.backgroundColor = '#ff0000'; // Set background color to red
+    reportBtn.addEventListener('click', redirectToReportPage);
+    reportBtnContainer.appendChild(reportBtn);
+}
+
+// Function to redirect to report page
+function redirectToReportPage() {
+    // Replace 'report.html' with the actual URL of your report page
+    window.location.href = 'report.html';
+}
