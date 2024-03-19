@@ -1,23 +1,63 @@
-document.getElementById("profileForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var username = document.getElementById("username").value;
-    detectFakeProfile(username);
-  });
+// Function to detect fake profile based on provided information
+function detectFakeProfile(username, following, followers, age, bio, profilePic) {
+    // Check if the username starts with "fake_"
+    if (username.startsWith('fake_')) {
+      return true; // Considered fake if the username starts with "fake_"
+    }
   
-  function detectFakeProfile(username) {
-    // Simulate detection process (replace with actual backend call)
-    var isFake = Math.random() > 0.5; // Simulate 50% chance of being fake
-    displayResult(username, isFake);
+    // Check if the number of following is significantly higher than the number of followers
+    if (followers > 0 && following / followers > 10) {
+      return true; // Considered fake if following/followers ratio is too high
+    }
+  
+    // Check if the age of the profile is less than 7 days
+    const currentTimestamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
+    const profileCreationTimestamp = currentTimestamp - (age * 24 * 60 * 60); // Convert age to seconds
+    if (profileCreationTimestamp > currentTimestamp - 7 * 24 * 60 * 60) {
+      return true; // Considered fake if the profile is less than 7 days old
+    }
+  
+    // Check if the bio is empty or contains suspicious keywords
+    if (!bio || bio.toLowerCase().includes('fake') || bio.toLowerCase().includes('spam')) {
+      return true; // Considered fake if the bio is empty or contains suspicious keywords
+    }
+  
+    // Check if the profile picture URL is empty
+    if (!profilePic) {
+      return true; // Considered fake if the profile picture URL is empty
+    }
+  
+    // If none of the above conditions are met, consider the profile as real
+    return false;
   }
   
-  function displayResult(username, isFake) {
-    var resultElement = document.getElementById("result");
-    var resultMessage;
-    if (isFake) {
-      resultMessage = "Profile '" + username + "' is likely fake. Please report it.";
-    } else {
-      resultMessage = "Profile '" + username + "' appears to be genuine.";
+  // Function to handle form submission and profile checking
+  document.getElementById('profileForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const following = parseInt(document.getElementById('following').value);
+    const followers = parseInt(document.getElementById('followers').value);
+    const age = parseInt(document.getElementById('age').value);
+    const bio = document.getElementById('bio').value.trim();
+    const profilePic = document.getElementById('profilePic').value.trim();
+    
+    // Check if any required field is empty
+    if (username === '' || isNaN(following) || isNaN(followers) || isNaN(age)) {
+      displayResult(false, 'Please fill in all required fields.');
+      return;
     }
-    resultElement.textContent = resultMessage;
+    
+    // Check if the profile is fake or real
+    const isFake = detectFakeProfile(username, following, followers, age, bio, profilePic);
+    
+    // Display the result
+    displayResult(isFake, isFake ? 'This profile seems to be fake. Please report it!' : 'This profile appears to be legitimate.');
+  });
+  
+  // Function to display the result
+  function displayResult(isFake, message) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = message;
+    resultDiv.style.color = isFake ? '#ff0000' : '#008000';
   }
   
