@@ -7,7 +7,7 @@ function detectFakeProfile(username, following, followers, age, bio, profilePic)
   }
 
   // Check if the username starts with "fake_"
-  if (username.startsWith('fake_')) {
+  if (username.startsWith('fake')) {
     return true; // Considered fake if the username starts with "fake_"
   }
 
