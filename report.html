@@ -1,95 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report Interface</title>
-    <link rel="thx" href="thx.html">
-    <style>
-        .container {
-            width: 60%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgb(244, 241, 237);
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Align items to the left */
-        }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .button-container {
-            margin-bottom: 20px;
-        }
-        .button-wrapper {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px; /* Add margin between buttons */
-        }
-        .checkbox {
-            margin-right: 10px; /* Add spacing between checkbox and text */
-        }
-        .button-text {
-            font-size: 16px;
-        }
-        .submit-button {
-            padding: 10px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Form</title>
+  <link rel="stylesheet" href="styles1.css">
 </head>
-<body style="background-color: rgb(248, 235, 183);">
-    
-    <div class="container">
-        <div class="title">Report this Instagram Account</div>
-        <div class="button-container">
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">They are pretending to be someone else</label>
-            </div>
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">They are under the age of 13</label>
-            </div>
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">Scamming people by their posts</label>
-            </div>
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">Something Else</label>
-            </div>
-            <!-- New checkboxes -->
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">Inappropriate Content</label>
-            </div>
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">Copyright Violation</label>
-            </div>
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">Hate Speech</label>
-            </div>
-            <div class="button-wrapper">
-                <input type="checkbox" class="checkbox">
-                <label class="button-text">Harassment or Bullying</label>
-            </div>
-        </div>
-        <button onclick= "window.location.href='thx.html';" class="submit-button">Submit</button>
-    </div>
+<body>
+  <div class="container">
+    <h1>Report Form</h1>
+    <form id="reportForm">
+      <fieldset>
+        <legend>Reasons for Reporting:</legend>
+        <label><input type="checkbox" name="reason" value="pretending"> Pretending to be someone else</label><br>
+        <label><input type="checkbox" name="reason" value="under13"> Under the age of 13</label><br>
+        <label><input type="checkbox" name="reason" value="scamming"> Spam following </label><br>
+        <label><input type="checkbox" name="reason" value="inappropriate"> Inappropriate content</label><br>
+        <label><input type="checkbox" name="reason" value="copyright"> Copyright violation</label><br>
+        <label><input type="checkbox" name="reason" value="hateSpeech"> Hate speech</label><br>
+        <label><input type="checkbox" name="reason" value="harassment"> Harassment or bullying</label><br>
+        <label><input type="checkbox" name="reason" value="somethingElse"> Something else</label><br>
+      </fieldset>
+      <button type="button" id="nextBtn">Next</button>
+    </form>
+  </div>
+  <video autoplay muted loop id="video-background">
+    <source src="3.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <script src="script1.js"></script>
 </body>
 </html>
-
